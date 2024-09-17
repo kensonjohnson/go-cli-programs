@@ -1,0 +1,20 @@
+set quiet := true
+
+MAIN_PACKAGE_PATH := "."
+BINARY_NAME := "todo"
+
+[private]
+help:
+  just --list --unsorted
+
+# Build for current OS/Arch
+build:
+  go build -o=/tmp/bin/{{ BINARY_NAME }} {{ MAIN_PACKAGE_PATH}}
+
+run: build
+  /tmp/bin/{{ BINARY_NAME }}
+
+tidy:
+  go fmt ./...
+  go mod tidy -v
+
