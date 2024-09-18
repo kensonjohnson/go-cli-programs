@@ -1,0 +1,22 @@
+set quiet := true
+
+MAIN_PACKAGE_PATH := "."
+BINARY_NAME := "watcher"
+
+[private]
+help:
+  just --list --unsorted
+
+# Build for current OS/Arch
+build:
+  go build -buildvcs=false -o=/tmp/bin/{{ BINARY_NAME }} {{ MAIN_PACKAGE_PATH}}
+
+run: build
+  /tmp/bin/{{ BINARY_NAME }}
+
+dev:
+  go run .
+
+tidy:
+  go fmt ./...
+  go mod tidy -v
